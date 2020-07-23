@@ -9,11 +9,15 @@ packages:
 
 sources:
   - 1_fetch/src/find_oldest_sites.R
+  - 1_fetch/src/get_site_data.R
   - 3_visualize/src/map_sites.R
 
 targets:
   main:
     depends:
+      - wi_data
+      - mn_data
+      - mi_data
       - 3_visualize/out/site_map.png
 
   # Configuration
@@ -27,7 +31,14 @@ targets:
     command: find_oldest_sites(states, parameter)
 
   # TODO: PULL SITE DATA HERE
+  wi_data:
+    command: get_site_data(oldest_active_sites, I('WI'), parameter)
 
+  mn_data:
+    command: get_site_data(oldest_active_sites, I('MN'), parameter)
+
+  mi_data:
+    command: get_site_data(oldest_active_sites, I('MI'), parameter)
 
   # Map oldest sites
   3_visualize/out/site_map.png:

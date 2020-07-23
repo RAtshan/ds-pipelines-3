@@ -1,0 +1,8 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+
+.remake
+.3_visualize/out
+.DS_Store
