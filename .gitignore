@@ -6,3 +6,6 @@
 .remake
 .3_visualize/out
 .DS_Store
+
+.1_fetch/tmp/*
+!1_fetch/tmp/state_splits.yml

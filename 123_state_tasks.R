@@ -1,5 +1,6 @@
 do_state_tasks <- function(oldest_active_sites, ...) {
 
+  split_inventory(summary_file = '1_fetch/tmp/state_splits.yml', oldest_active_sites)
   # Define task table rows
   # TODO: DEFINE A VECTOR OF TASK NAMES HERE
   task_names <- oldest_active_sites$state_cd
@@ -13,7 +14,7 @@ do_state_tasks <- function(oldest_active_sites, ...) {
     },
     # TODO: Make commands that call get_site_data()
    command = function(task_name, ...){
-     sprintf("get_site_data(sites_info = oldest_active_sites, state = I('%s'), parameter = parameter)", task_name)
+     sprintf("get_site_data(sites_info_file = '1_fetch/tmp/inventory_%s.tsv', parameter = parameter)", task_name)
    }
 )
 
@@ -38,4 +39,25 @@ do_state_tasks <- function(oldest_active_sites, ...) {
   scmake('123_state_tasks', remake_file='123_state_tasks.yml')
   # Return nothing to the parent remake file
   return()
+}
+
+# Issue #6: Creating a splitter so each task target retrieve and build the needed State's data.
+
+split_inventory <- function(
+  summary_file = '1_fetch/tmp/state_splits.yml',
+  sites_info = oldest_active_sites){
+  if(!dir.exists('1_fetch/temp')) dir.create('1_fetch/tmp')
+  sort_split_inventory = c()
+    #vector(mode = "list", length = nrow(sites_info))
+  #creating a loop to over  the rows in oldest_active_sites and save each row to a file
+  for(i in 1:nrow(sites_info)){
+    state_abb = sites_info[i, 'state_cd']
+    inventory_name = sprintf("1_fetch/tmp/inventory_%s.tsv", state_abb)
+    readr::write_tsv(sites_info[i, ], path = inventory_name)
+    sort_split_inventory =  append(sort_split_inventory, inventory_name)
+}
+  # to sort the above tsv files in alphabetical order.
+  sort_split_inventory = sort(sort_split_inventory)
+  # to write a summary file (yml in this case) using the above file path.
+  scipiper::sc_indicate(ind_file = summary_file, data_file = sort_split_inventory)
 }
