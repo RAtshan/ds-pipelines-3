@@ -35,7 +35,9 @@ do_state_tasks <- function(oldest_active_sites, ...) {
       },
     command = function(steps, ...){
       sprintf("tally_site_obs(site_data = %s)", steps[['download']]$target_name)
-    }
+    #alternative way
+      #sprintf("tally_site_obs(site_data=%s_data)", task_name)
+      }
   )
   # Create the task_plan
   task_plan <- create_task_plan(
