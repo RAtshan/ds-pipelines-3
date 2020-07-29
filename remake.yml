@@ -18,7 +18,10 @@ targets:
   main:
     depends:
       - state_tasks
+      - 2_process/src/tally_site_obs.R
       - 3_visualize/out/site_map.png
+      - 3_visualize/src/plot_site_data.R
+
 
   # Configuration
   states:
@@ -34,8 +37,6 @@ targets:
   state_tasks:
     command: do_state_tasks(oldest_active_sites, '1_fetch/src/get_site_data.R')
     depends: parameter
-    depends: '3_visualize/src/plot_site_data.R'
-    depends: '2_process/src/tally_site_obs.R'
 
 
   # Map oldest sites
