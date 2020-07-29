@@ -50,7 +50,7 @@ do_state_tasks <- function(oldest_active_sites, ...) {
     makefile = '123_state_tasks.yml',
     include = 'remake.yml',
     packages = c('tidyverse', 'dataRetrieval' , 'lubridate'),
-    sources = c('1_fetch/src/get_site_data.R', '3_visualize/src/plot_site_data.R',  '2_process/src/tally_site_obs.R', 'remake.yml'),
+    sources = c('1_fetch/src/get_site_data.R', '3_visualize/src/plot_site_data.R',  '2_process/src/tally_site_obs.R'),
     tickquote_combinee_objects = FALSE,
     finalize_funs = c())
 
