@@ -11,16 +11,18 @@ packages:
 sources:
   - 1_fetch/src/find_oldest_sites.R
   - 1_fetch/src/get_site_data.R
-  - 3_visualize/src/map_sites.R
   - 123_state_tasks.R
+  - 2_process/src/tally_site_obs.R
+  - 3_visualize/src/map_sites.R
+  - 3_visualize/src/plot_site_data.R
+
 
 targets:
   main:
     depends:
       - state_tasks
-      - 2_process/src/tally_site_obs.R
       - 3_visualize/out/site_map.png
-      - 3_visualize/src/plot_site_data.R
+
 
 
   # Configuration
