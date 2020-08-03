@@ -66,7 +66,8 @@ do_state_tasks <- function(oldest_active_sites, ...) {
   timeseries_plots_info <- yaml::yaml.load_file('3_visualize/out/timeseries_plots.yml') %>%
     tibble::enframe(name = 'filename', value = 'hash') %>%
     mutate(hash = purrr::map_chr(hash, `[[`, 1))
-  # Return nothing to the parent remake file
+
+  # Return observation tallies and timeseriers plots information to the parent remake file
   return(list(obs_tallies = obs_tallies, timeseries_plots_info = timeseries_plots_info))
 }
 
@@ -97,7 +98,7 @@ combine_obs_tallies <- function(...){
   dots <- list(...)
   tally_dots <- dots[purrr::map_lgl(dots, is_tibble)]
   #bind_rows also work
-  tally_combine = rbind(tally_dots)
+  tally_combine = bind_rows(tally_dots)
   return(tally_combine)
 }
 
