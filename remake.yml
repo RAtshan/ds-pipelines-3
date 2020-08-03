@@ -23,7 +23,6 @@ sources:
 targets:
   main:
     depends:
-      - obs_tallies
       - 3_visualize/out/site_map.png
       - 3_visualize/out/data_coverage.png
       - 3_visualize/out/timeseries_map.html
