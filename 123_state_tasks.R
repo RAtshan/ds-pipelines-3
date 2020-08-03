@@ -65,6 +65,7 @@ do_state_tasks <- function(oldest_active_sites, ...) {
              task_names = NULL,
              step_names = NULL,
              num_tries = 60,
+             force = TRUE,
              n_cores = 1)
 
   obs_tallies <- remake::fetch('obs_tallies_promise', remake_file='123_state_tasks.yml')
